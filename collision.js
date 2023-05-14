@@ -153,31 +153,45 @@ class Line {
         /* THESE RULES CAN BE BLAYED WITH */
         // random angles and positions seem to generate 'spider-web' patterns
         
+        // rule for scaling the stroke-width down with each iteration of recursion:
         let childStroke = this.stroke * 0.9;
+
+        // rule for what angle the 'child' will shoot off in
+        // change the offset value or symbol (+/-), or call the random function instead
         let childAng = this.angle - 30;
+        let childAngRand = randNumLim(0,360);
         
+        // rules for how at what position along the parent line the child should spawn from
+        let qrtrLength = this.length*0.25;
+        let halfLength = this.length*0.5;
+        let thrQrtrLength = this.length*0.75;
         // // pick a starting position halfway along the line
         let childXY1 = {
-            x: (this.x1 + (Math.cos(this.lineAngleRad) * (this.length*0.5))),
-            y: (this.y1 - (Math.sin(this.lineAngleRad) * (this.length*0.5)))
+            x: (this.x1 + (Math.cos(this.lineAngleRad) * (halfLength))),
+            y: (this.y1 - (Math.sin(this.lineAngleRad) * (halfLength)))
         };
-
         // // pick a starting position a quarter of the way along the line
         let childXY2 = {
-            x: (this.x1 + (Math.cos(this.lineAngleRad) * (this.length*0.25))),
-            y: (this.y1 - (Math.sin(this.lineAngleRad) * (this.length*0.25)))
+            x: (this.x1 + (Math.cos(this.lineAngleRad) * (qrtrLength))),
+            y: (this.y1 - (Math.sin(this.lineAngleRad) * (qrtrLength)))
         };
-
         // // pick a starting position three quarters of the way along the line
         let childXY3 = {
-            x: (this.x1 + (Math.cos(this.lineAngleRad) * (this.length*0.75))),
-            y: (this.y1 - (Math.sin(this.lineAngleRad) * (this.length*0.75)))
+            x: (this.x1 + (Math.cos(this.lineAngleRad) * (thrQrtrLength))),
+            y: (this.y1 - (Math.sin(this.lineAngleRad) * (thrQrtrLength)))
         };
 
+        // OR, if you'd like to pick a random coord from the parent array, use this:
+        let childXYrand = coordArray[Math.floor(Math.random() * coordArray.length)];
+        
+        
+        // simply define new children for each parent using one of the above methods
+        // ensure you use .x .y to address the x & y values separately
         let child1 = new Line(childXY1.x, childXY1.y, childAng, childStroke);
         let child2 = new Line(childXY2.x, childXY2.y, childAng, childStroke);
         let child3 = new Line(childXY3.x, childXY3.y, childAng, childStroke);
 
+        // then call as many children for each collision as you'd like
         child1.drawLine();
         child2.drawLine();
         child3.drawLine();
