@@ -182,12 +182,11 @@ class Line {
         };
 
         // OR, if you'd like to pick a random coord from the parent array, use this:
-        let childXYrand = coordArray[Math.floor(Math.random() * coordArray.length)];
-        
+        let childXYrand = this.childArray[Math.floor(Math.random() * this.childArray.length)];
         
         // simply define new children for each parent using one of the above methods
         // ensure you use .x .y to address the x & y values separately
-        let child1 = new Line(childXY1.x, childXY1.y, childAng, childStroke);
+        let child1 = new Line(childXYrand.x, childXYrand.y, childAngRand, childStroke);
         let child2 = new Line(childXY2.x, childXY2.y, childAng, childStroke);
         let child3 = new Line(childXY3.x, childXY3.y, childAng, childStroke);
 
