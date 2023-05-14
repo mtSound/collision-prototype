@@ -1,15 +1,7 @@
 'use strict';
 
-// blank array to store coordinates to check
-// the idea is that all possible coordinates will be pushed into the array when a line is drawn
-// coordMatch will compare this array with the array for the line in question, and then proceed to an
-// else statement if a match (collision) is detected
-// I imagine for this to work we need to ensure that coordinates are always rounded, otherwise matching becomes
-// very difficult
-let coordArray = [];
-
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-///////////// CANVAS SETUP
+// CANVAS SETUP
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 const svg = document.getElementById("base-svg");
 let width = window.innerWidth;
@@ -17,14 +9,49 @@ let height = window.innerHeight;
 svg.style.width = width;
 svg.style.height = height;
 
+// setting the button div as out of bounds for clicking
+const btnDiv = document.querySelector(".transport");
+let outOfBounds = btnDiv.offsetHeight;
+
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+// BUTTON IMPLEMENTATION
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+let resetBtn = document.getElementById('reset');
+resetBtn.addEventListener("click", stopSeq);
 
 
-let lines = createLinesArray(400);
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+// SETUP
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+// just in case we need a global 'resolution' for the 'grid'
+let resolution = 1;
+// blank array to store coordinates for all possible collision points
+let coordArray = [];
+// blank array to store ACTUAL collision points
+let collisionArray = [];
 
 
-for (let line of lines) {
+
+
+// draw a line on mouse click
+function logClick(e) {
+  // get the x,y coordinates of the mouse click event
+  let mouseX = parseInt(e.clientX);
+  let mouseY = parseInt(e.clientY);
+  // as long as the mouse click didn't occure in the button div, then use these coordinates to draw a line
+  if (mouseY > outOfBounds) {
+    // depending on the quadrant the mouse was clicked in, set the angle so that the line heads towards the centre of the canvas
+    let mouseAng = angDir(mouseX, mouseY);
+    let line = new Line(mouseX, mouseY, mouseAng, resolution);
     line.drawLine();
   }
+}
+
+// event listener for clicking anywhere on the page
+document.addEventListener("click", logClick);
+
 
 
 

@@ -1,19 +1,16 @@
-Researched 'ray marching' as a loose concept for looking for collisions
+A prototype 'agent-based' system for drawing straight lines
+If a line will collide with another line, the x2,y2 coordinates are altered to stop the line before collision
 
-We start with an empty 'coordArray', which will eventually be an array full of occupied coordinates
-
-The 'Line' class in the utils then script does the following:
-
-1. Takes a start point (x1, y1), angle in degrees (basically what direction it shoots off in), and a length
-2. Calculates the proposed end-point of the line (x2, y2) based on the input
-3. Calculates the coordinates that the line would pass through based on the proposed end-point
-4. It compares these coordinates with those stored in the 'coordArray'
-5. If a match is found, the x2,y2 coordinates are altered to avoid a collision - this becomes the ACTUAL x2,y2 position for the line
-6. Once the actual 'collision-free' line has been calculated, it adds the coordinates that that line would pass through into the 'coordArray (so new lines can check for collisions against this line)
-7. Then the line is drawn
-8. Animation currently is simple x2,y2 animation
+Recursion is also called within the 'Line' class.
+* Once a collision is encountered, the 'createChild' method is invoked
+* This method draws new lines from defined points on the initial line, and at defined angles
+* Once these lines collide with something, the 'createChild' method is recursively called
+* recursion is aborted once the length of a line is =< 20
 
 
+Notes:
 
-* Not sure how this would go with anything that isn't a line...
-* Not sure how this could be applied to HTML canvas
+* Currently only works for straight lines (underlying math is based on complementary right angle triangles)
+** I think I can expand to work for strictly circular arcs (non-standard arcs would be extraordinarily complicated though...)
+
+** If required I can amend this to just store & calculate coordinates, instead of actually appending SVG objects

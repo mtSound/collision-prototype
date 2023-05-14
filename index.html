@@ -5,25 +5,28 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SVG Collision</title>
+    <title>Collision Prototype</title>
     <link rel="stylesheet" href="style.css" />
+    <script src="utils.js"></script>
+    <script src="collision.js"></script>
 
-</head>
 </head>
 
 <body>
+    <div class="transport">
+        <button class="transport-button" id="reset" title="Clear the canvas">RESET CANVAS</button>
+        <p>Click anywhere below to randomly generate a line.
+            If the line collides with another line, it will spawn children
+        </p>
+    </div>
     <div class="svg-container" id="svg-container">
         <svg id="base-svg">
             <linearGradient id="parent" x1="0%" y1="0%" x2="100%" y2="0%">
                 <stop offset="0%" stop-color="#05a" />
                 <stop offset="100%" stop-color="#0a5" />
             </linearGradient>
-
         </svg>
-
     </div>
-
-    <script src="utils.js"></script>
     <script src="script.js"></script>
 </body>
 
