@@ -14,3 +14,21 @@ Notes:
 ** I think I can expand to work for strictly circular arcs (non-standard arcs would be extraordinarily complicated though...)
 
 ** If required I can amend this to just store & calculate coordinates, instead of actually appending SVG objects
+
+
+
+
+
+
+TO IMPLEMENT:
+
+drawing animation
+'remove child' animation - after a fixed amount of time?
+--- how would this work with children? should they be removed first, or last?
+
+arc paths?
+
+easier definition of rulesets?
+
+- change colour or opacity or stroke width for children?
+

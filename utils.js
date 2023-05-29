@@ -76,17 +76,17 @@ function arrContainsObject(obj, arr) {
 
 // you can use this to track collision points
 function makeCircle(x, y, r) {
-    let circle = document.createElementNS("http://www.w3.org/2000/svg", "circle");
-    circle.setAttribute("cx", x);
-    circle.setAttribute("cy", y);
-    circle.setAttribute("r", r);
-    circle.setAttribute("fill", 'black');
+    let circle = document.createElementNS('http://www.w3.org/2000/svg', 'circle');
+    circle.setAttribute('cx', x);
+    circle.setAttribute('cy', y);
+    circle.setAttribute('r', r);
+    circle.setAttribute('fill', 'black');
     svg.appendChild(circle);
 }
 
 //simple svg line function
 function line(x1, y1, x2, y2, strWidth, id) {
-    let newLine = document.createElementNS('http://www.w3.org/2000/svg', 'line')
+    let newLine = document.createElementNS('http://www.w3.org/2000/svg', 'line');
     newLine.setAttribute('x1', x1);
     newLine.setAttribute('y1', y1);
     newLine.setAttribute('x2', x2);
@@ -96,4 +96,54 @@ function line(x1, y1, x2, y2, strWidth, id) {
     newLine.setAttribute('stroke', 'url(#parent)');
 
     return newLine;
+}
+
+function arc(x1, y1, r, dx, dy, dir, strWidth, id){
+    let newArc = document.createElementNS('http://www.w3.org/2000/svg', 'path');
+    // "M x1 y1" is the start point of the arc
+    // "a rx ry" are the radii.
+    // "ang" is the angle - only has an affect if the radii are different (currently 0) 
+    // "large-arc flag" defines whether or not to draw a large-arc (1) or a small one (0) (currently 0) 
+    // "dir" is the 'sweep-flag', which can be 1 for clock-wise or 0 for counter-clockwise (could be randomised)
+    // "dx, dy" are the coordinates for the end of the arc, RELATIVE to the beginning of the arc
+    //// I imagine the math will get complex if the radius isn't half the distance between x1,y1 and x2,y2...
+    //// some kind of ratio could be used?
+
+    //* relative negative x values move to the left, and relative negative y values move upwards.
+    
+    newArc.setAttribute('d', `M ${x1}, ${y1}
+    a ${r} ${r} 0 0 ${dir} ${dx}, ${dy}`
+    ); 
+    newArc.setAttribute('id', id); 
+    newArc.setAttribute('stroke-width', strWidth); 
+    newArc.setAttribute('stroke', 'url(#parent)'); 
+    newArc.setAttribute('fill', 'none');
+
+    //console.log(newArc);
+    svg.appendChild(newArc); 
+}
+
+function arcAbs(x1, y1, r, x2, y2, dir, strWidth, id){
+    let newArc = document.createElementNS('http://www.w3.org/2000/svg', 'path');
+    // "M x1 y1" is the start point of the arc
+    // "a rx ry" are the radii.
+    // "ang" is the angle - only has an affect if the radii are different (currently 0) 
+    // "large-arc flag" defines whether or not to draw a large-arc (1) or a small one (0) (currently 0) 
+    // "dir" is the 'sweep-flag', which can be 1 for clock-wise or 0 for counter-clockwise (could be randomised)
+    // "x2, y2" are the coordinates for the end of the arc
+    //// I imagine the math will get complex if the radius isn't half the distance between x1,y1 and x2,y2...
+    //// some kind of ratio could be used?
+
+    //* absolute negative x and y values are interpreted as negative coordinates;
+    
+    newArc.setAttribute('d', `M ${x1}, ${y1}
+    A ${r} ${r} 0 0 ${dir} ${x2}, ${y2}`
+    ); 
+    newArc.setAttribute('id', id); 
+    newArc.setAttribute('stroke-width', strWidth); 
+    newArc.setAttribute('stroke', 'url(#parent)'); 
+    newArc.setAttribute('fill', 'none');
+
+    //console.log(newArc);
+    svg.appendChild(newArc); 
 }

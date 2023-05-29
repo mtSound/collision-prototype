@@ -32,8 +32,8 @@ class Line {
         this.childArray = [];
         this.svgElement;
 
-        //this.animDur = randNumLim(2, 10);
-        this.id = ("line_" + document.getElementsByTagName('line').length);
+        this.animDur = randNumLim(2, 10);
+        this.id = ('line_' + document.getElementsByTagName('line').length);
     }
 
     drawLine() {
@@ -103,8 +103,8 @@ class Line {
         this.svgElement = line(this.x1, this.y1, this.x2, this.y2, this.stroke, this.id);
         // add the line to the canvas
         svg.appendChild(this.svgElement);
-        //// add animation
-        //this.addAnimation();
+        // add animation
+        // this.addAnimation();
 
         // if the line collided with another line (ie. 'matchedCoords === true'), AND the length of the line is greater than 20
         // then create a 'child' line. THIS STOPS THE RECURSION
@@ -131,6 +131,7 @@ class Line {
         // animElementX2.setAttribute('begin', this.startAnim);
         // should duration be set, or randomised?
         animElementX2.setAttribute('dur', this.animDur);
+        animElementX2.setAttribute('id', ('line_' + document.getElementsByTagName('line').length));
 
         let animElementY2 = document.createElementNS('http://www.w3.org/2000/svg', 'animate');
         // animation for the y2 coordinates of the line
@@ -197,3 +198,44 @@ class Line {
 
     }
 }
+
+
+
+
+
+// class Arc {
+//     // takes start position (x1, y1), the angle (direction to draw the line in), and the stroke width (to scale down on recursion)
+//     constructor(x1, y1, angle, stroke) {
+//         // rounds the (x1, y1) position to the resolution (it's easier to work with whole numbers - floating numbers increase overhead)
+//         this.x1 = round(x1, resolution);
+//         this.y1 = round(y1, resolution);
+//         this.stroke = stroke;
+
+//         // Math.cos(90)/Math.sin(90) (or any multiple of 90) will return a 0 and the line won't propagate
+//         // this is a simple switch case that checks if the input angle is a multiple of 90, and then adjusts so
+//         // the line will actually draw
+//         switch (angle % 90) {
+//             case 0:
+//                 this.angle = angle + 1;
+//                 break;
+//             default:
+//                 this.angle = angle;
+//         }
+
+//         // convert the angle to radians (Math.cos and Math.sin expect radians, not degrees)
+//         this.lineAngleRad = this.angle * Math.PI / 180;
+        
+//         // declare the length of the line, but calculate it later (after we have our (x2, y2) positions)
+//         this.length;
+
+//         // define an empty array to store the coordinates of this line in so that 'child' lines can be recursively
+//         // drawn from the 'parent' line
+//         this.childArray = [];
+//         this.svgElement;
+
+//         this.animDur = randNumLim(2, 10);
+//         this.id = ('line_' + document.getElementsByTagName('line').length);
+//     }
+
+
+// }
